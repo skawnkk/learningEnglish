@@ -1,0 +1,28 @@
+.fullHeight{
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.modal {
+  z-index:1;
+}
+
+.modalContents {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.show{
+  display:block;
+}
+
+.none {
+  display: none;
+}
