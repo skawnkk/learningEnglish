@@ -1,0 +1,43 @@
+.topSection {
+  display: flex;
+  flex-direction: column;
+  flex-gap: 4px;
+  padding: 60px 20px 30px;
+  background-color: #00c170;
+}
+
+.miniTitle {
+  color: #00663a;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+}
+
+.level {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 44px;
+  letter-spacing: -0.04em;
+}
+
+.description {
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 12px 20px;
+  margin-top: 24px;
+}
+
+.testItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid #dddddd;
+}
+
+.date {
+  color: #555555;
+  font-size: 12px;
+  line-height: 24px;
+  letter-spacing: 0px;
+}
