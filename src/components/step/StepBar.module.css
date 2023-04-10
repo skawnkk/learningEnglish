@@ -1,0 +1,30 @@
+.stepBar {
+  width: 100%;
+}
+
+.step {
+  height: 4px;
+  min-width: 30px;
+}
+
+.progress {
+  font-size: 14px;
+  line-height: 20px;
+  text-align: end;
+}
+
+.correct {
+  background-color: #00d37a;
+}
+
+.wrong {
+  background-color: #ff414d;
+}
+
+.trying {
+  background-color: #8c8e91;
+}
+
+.todo {
+  background-color: #ebedef;
+}
