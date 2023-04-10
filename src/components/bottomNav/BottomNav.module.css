@@ -1,0 +1,11 @@
+.bottomNav {
+  border-top: 1px solid #ebedef;
+  padding: 12px 0px;
+}
+
+.time {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 40px;
+  margin-left: 12px;
+}
