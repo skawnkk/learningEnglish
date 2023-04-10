@@ -16,6 +16,11 @@ function BottomNav() {
     if (time < 1 || myAnswerList.length === 0) return false
     return true
   }
+
+  const checkAnswer = () => {
+    router.replace(`/test/${router.query.id}/check`)
+  }
+
   const isActiveButton = getIsActiveButton()
   return (
     <div className={classNames(styles.bottomNav, 'flex justify-between')}>

@@ -1,22 +1,23 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from 'next/router'
-import TimerModal from '../../components/modal/TimerModal'
-import Header from '../../components/header/Header'
-import StepBar, {AnswerState} from '../../components/step/StepBar'
-import QuizSection from '../../components/quizSection/QuizSection'
-import {useRecoilState} from 'recoil'
-import {testStateAtom} from '../../state/atoms'
-import BottomNav from '../../components/bottomNav/BottomNav'
+import TimerModal from '../../../components/modal/TimerModal'
+import Header from '../../../components/header/Header'
+import StepBar, {AnswerState} from '../../../components/step/StepBar'
+import QuizSection from '../../../components/quizSection/QuizSection'
+import {useRecoilState, useSetRecoilState} from 'recoil'
+import {myAnswerAtom, questionAtom, testStateAtom} from '../../../state/atoms'
+import BottomNav from '../../../components/bottomNav/BottomNav'
 
 function TestPage() {
   const router = useRouter()
   const id = Number(router.query.id as string)
   const [questions, setQuestions] = useState([])
   const [testState, setTestState] = useRecoilState(testStateAtom)
-
+  const [question, setQuestion] = useRecoilState(questionAtom)
+  const setMyAnswerList = useSetRecoilState(myAnswerAtom)
   const moveBack = () => {
     router.back()
-    //testState 초기화
+    setMyAnswerList([])
   }
 
   useEffect(() => {
@@ -33,6 +34,7 @@ function TestPage() {
         .then((res) => {
           setQuestions(res.data.content)
           updateAnswerState(res.data.content.length)
+          setQuestion(res.data.content[testState.current])
         })
         .catch((err) => {
           console.log(err) //에러처리(모달?)
