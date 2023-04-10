@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './Button.module.css'
+import classNames from 'classnames'
 
 interface ButtonProps {
   onClick?: () => void
@@ -9,7 +10,12 @@ interface ButtonProps {
 
 function Button({onClick = () => {}, disabled = false, children, ...restProps}: ButtonProps) {
   return (
-    <button className={styles.basicButton} onClick={onClick} disabled={disabled} {...restProps}>
+    <button
+      className={classNames(styles.basicButton, disabled && styles.basicButtonDisabled)}
+      onClick={onClick}
+      disabled={disabled}
+      {...restProps}
+    >
       {children}
     </button>
   )
