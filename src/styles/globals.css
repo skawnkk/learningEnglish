@@ -3,24 +3,44 @@
 @tailwind utilities;
 
 :root {
- --primary--color: #00C170;
- --primary--button--color: #00D37A;
- --error--color: #FF414D;
- --current--color: #8C8E91;
- --empty--color: #EBEDEF;
- --fail--color: #FF5F5F;
- --good--color: #00D6C9;
- --perfect--color: #0DB6FF;
+  --primary--color: #00c170;
+  --primary--button--color: #00d37a;
+  --error--color: #ff414d;
+  --current--color: #8c8e91;
+  --empty--color: #ebedef;
+  --fail--color: #ff5f5f;
+  --good--color: #00d6c9;
+  --perfect--color: #0db6ff;
 }
 
 body {
-
 }
 
-.layout{
- display: flex;
- flex-direction: column;
- flex: 1;
- border: 1px solid black;
+.layout {
+  height: 100vh;
+  position:relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border: 1px solid black;
 }
 
+.h3 {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 44px;
+  letter-spacing: -0.04em;
+}
+
+.h4 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: 0px;
+}
+
+.h6 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
