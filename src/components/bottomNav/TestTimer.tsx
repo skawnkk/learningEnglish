@@ -1,10 +1,8 @@
 import React from 'react'
-import {useTimer} from '../../hooks/useTimer'
 import styles from './BottomNav.module.css'
 
-function TestTimer() {
-  const time = useTimer(45, 'ss')
-  
+function TestTimer({time}:{time:number}) {
+
   return (
     <div className={'flex items-center'}>
       <p>남은 시간</p>
