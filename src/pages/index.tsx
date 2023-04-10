@@ -1,8 +1,7 @@
-import Image from 'next/image'
 import {Inter} from 'next/font/google'
-
 import Header from '../components/header/Header'
 import styles from '../styles/pages/TestList.module.css'
+import QuizList from "../components/quizList/QuizList";
 const inter = Inter({subsets: ['latin']})
 
 export default function TestList({testList}) {
@@ -24,6 +23,7 @@ export default function TestList({testList}) {
           <p>소통하도록 연습해요.</p>
         </div>
       </div>
+      <QuizList testList={testList}/>
     </div>
   )
 }
