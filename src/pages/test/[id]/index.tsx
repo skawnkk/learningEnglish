@@ -1,24 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from 'next/router'
 import TimerModal from '../../../components/modal/TimerModal'
-import Header from '../../../components/header/Header'
-import StepBar, {AnswerState} from '../../../components/step/StepBar'
+import {AnswerState} from '../../../components/step/StepBar'
 import QuizSection from '../../../components/quizSection/QuizSection'
 import {useRecoilState, useSetRecoilState} from 'recoil'
-import {myAnswerAtom, questionAtom, testStateAtom} from '../../../state/atoms'
+import {questionAtom, testStateAtom} from '../../../state/atoms'
 import BottomNav from '../../../components/bottomNav/BottomNav'
+import TestLayout from "../../../components/layout/TestLayout";
 
 function TestPage() {
   const router = useRouter()
   const id = Number(router.query.id as string)
   const [questions, setQuestions] = useState([])
   const [testState, setTestState] = useRecoilState(testStateAtom)
-  const [question, setQuestion] = useRecoilState(questionAtom)
-  const setMyAnswerList = useSetRecoilState(myAnswerAtom)
-  const moveBack = () => {
-    router.back()
-    setMyAnswerList([])
-  }
+  const setQuestion = useSetRecoilState(questionAtom)
 
   useEffect(() => {
     if (!id) return
@@ -61,14 +56,10 @@ function TestPage() {
   return (
     <>
       <TimerModal />
-      <div className={'flex flex-col flex-1 px-4'}>
-        <Header clear onClick={moveBack}>
-          테스트
-        </Header>
-        <StepBar stepList={testState.answers} current={testState.current} />
+      <TestLayout>
         <QuizSection questions={questions} current={testState.current} />
         <BottomNav />
-      </div>
+      </TestLayout>
     </>
   )
 }
