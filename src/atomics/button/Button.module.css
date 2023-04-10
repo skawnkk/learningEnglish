@@ -1,0 +1,13 @@
+.basicButton {
+  background-color: #00d37a;
+  padding: 16px 45px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.basicButton:disabled {
+  background-color: #EBEDEF;
+  color: #D2D8E1;
+}
