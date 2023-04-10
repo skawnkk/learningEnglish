@@ -1,0 +1,42 @@
+.answerSection {
+  gap: 4px;
+  margin-top: 40px;
+}
+
+.optionSection {
+  gap: 4px;
+  padding: 8px;
+  margin-top: 16px;
+  background-color: #f3f4f6;
+}
+
+.wordTag {
+  font-weight: 500;
+  font-size: 14px;
+  padding: 13px 16px;
+  border-radius: 8px;
+  border: 1px solid #d2d8e1;
+  background-color: #fff;
+}
+
+.wordTag_disabled {
+  background-color: #ebedef;
+  border: 1px solid #ebedef;
+  color: #d2d8e1;
+}
+
+.badge{
+  position: absolute;
+  right: -3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: #ff7448;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.15px;
+  border-radius: 50%;
+}
