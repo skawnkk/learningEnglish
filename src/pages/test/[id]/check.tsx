@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import {useRecoilState, useRecoilValue, useResetRecoilState} from 'recoil'
-import {isAnswerAtom, isLastQuizAtom, myAnswerAtom, testStateAtom} from '../../../state/atoms'
+import {isAnswerAtom, myAnswerAtom, testStateAtom} from '../../../state/atoms'
 import styles from '../../../styles/pages/Check.module.css'
 import TestLayout from '../../../components/layout/TestLayout'
 import classNames from 'classnames'
@@ -14,14 +14,20 @@ function Check() {
   const isAnswer = useRecoilValue(isAnswerAtom)
   const resetMyAnswer = useResetRecoilState(myAnswerAtom)
   const [testState, setTestState] = useRecoilState(testStateAtom)
+  const {answers, current} = testState
+  const isLastQuiz = answers.length === (current+1)
 
   const goNextQuiz = () => {
     resetMyAnswer()
-    let originAnswerState = [...testState.answers]
-    originAnswerState.splice(testState.current + 1, 1, AnswerState.TRYING)
+    let originAnswerState = [...answers]
+    originAnswerState.splice(current + 1, 1, AnswerState.TRYING)
 
     setTestState((prev) => ({...prev, current: prev.current + 1, answers: originAnswerState}))
     router.replace(`/test/${router.query.id}`)
+  }
+
+  const goResultPage = () => {
+    router.replace(`/result`)
   }
 
   return (
@@ -42,7 +48,11 @@ function Check() {
           </p>
         </div>
       )}
-      <Button onClick={goNextQuiz}>다음 문제</Button>
+      {isLastQuiz ? (
+        <Button onClick={goResultPage}>{'결과 확인하기'}</Button>
+      ) : (
+        <Button onClick={goNextQuiz}>{'다음 문제'}</Button>
+      )}
     </TestLayout>
   )
 }

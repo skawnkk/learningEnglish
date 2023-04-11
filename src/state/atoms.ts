@@ -14,7 +14,7 @@ const testStateAtom = atom({
   default: initialTestState,
 })
 
-//testItem
+//myCurrentAnswer
 const myAnswerAtom = atom({
   key: 'myAnswerAtom',
   default: [],
@@ -26,6 +26,7 @@ const questionAtom = atom({
   default: initialQuestion,
 })
 
+//currentAnswer
 const isAnswerAtom = selector({
   key: 'isAnswer',
   get: ({get}) => {
