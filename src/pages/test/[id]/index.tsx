@@ -32,7 +32,7 @@ function TestPage() {
           setQuestion(res.data.content[testState.current])
         })
         .catch((err) => {
-          console.log(err) //에러처리(모달?)
+          console.log(err) //todo:에러처리(모달?) - 재요청/리스트가기 모달
           router.back()
         })
     }
@@ -44,9 +44,9 @@ function TestPage() {
     if (testState.answers.length === 0) {
       const convertedAnswers = Array(questionLength)
         .fill(0)
-        .map((q, idx) => {
-          if (idx === 0) return {no: idx, state: AnswerState.TRYING}
-          return {no: idx, state: AnswerState.TODO}
+        .map((_, idx) => {
+          if (idx === 0) return AnswerState.TRYING
+          return AnswerState.TODO
         })
 
       setTestState({...testState, answers: convertedAnswers})

@@ -1,23 +1,22 @@
 import React from 'react'
 import Image from 'next/image'
-import {useRecoilValue} from 'recoil'
-import {myAnswerAtom, questionAtom} from '../../../state/atoms'
+import {useRecoilValue, useResetRecoilState} from 'recoil'
+import {isAnswerAtom, myAnswerAtom} from '../../../state/atoms'
 import styles from '../../../styles/pages/Check.module.css'
-import TestLayout from "../../../components/layout/TestLayout";
-import classNames from "classnames";
-import Button from "../../../atomics/button/Button";
+import TestLayout from '../../../components/layout/TestLayout'
+import classNames from 'classnames'
+import Button from '../../../atomics/button/Button'
+import {useRouter} from 'next/router'
 
 function Check() {
-  const question = useRecoilValue(questionAtom)
-  const myAnswerList = useRecoilValue(myAnswerAtom)
-
-  const getIsAnswer = () => {
-    const answer = question.words.join(' ')
-    const myAnswer = myAnswerList.join(' ')
-    return answer === myAnswer
+  const router = useRouter()
+  const isAnswer = useRecoilValue(isAnswerAtom)
+  const resetMyAnswer = useResetRecoilState(myAnswerAtom);
+  const goNextQuiz = () => {
+    resetMyAnswer()
+    router.replace(`/test/${router.query.id}`)
   }
 
-  const isAnswer = getIsAnswer()
   return (
     <TestLayout className={styles.checkLayout}>
       {isAnswer ? (
@@ -35,7 +34,7 @@ function Check() {
           </p>
         </div>
       )}
-      <Button>다음 문제</Button>
+      <Button onClick={goNextQuiz}>다음 문제</Button>
     </TestLayout>
   )
 }
