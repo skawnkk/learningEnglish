@@ -1,19 +1,26 @@
 import React from 'react'
 import Image from 'next/image'
-import {useRecoilValue, useResetRecoilState} from 'recoil'
-import {isAnswerAtom, myAnswerAtom} from '../../../state/atoms'
+import {useRecoilState, useRecoilValue, useResetRecoilState} from 'recoil'
+import {isAnswerAtom, isLastQuizAtom, myAnswerAtom, testStateAtom} from '../../../state/atoms'
 import styles from '../../../styles/pages/Check.module.css'
 import TestLayout from '../../../components/layout/TestLayout'
 import classNames from 'classnames'
 import Button from '../../../atomics/button/Button'
 import {useRouter} from 'next/router'
+import StepBar, {AnswerState} from '../../../components/step/StepBar'
 
 function Check() {
   const router = useRouter()
   const isAnswer = useRecoilValue(isAnswerAtom)
-  const resetMyAnswer = useResetRecoilState(myAnswerAtom);
+  const resetMyAnswer = useResetRecoilState(myAnswerAtom)
+  const [testState, setTestState] = useRecoilState(testStateAtom)
+
   const goNextQuiz = () => {
     resetMyAnswer()
+    let originAnswerState = [...testState.answers]
+    originAnswerState.splice(testState.current + 1, 1, AnswerState.TRYING)
+
+    setTestState((prev) => ({...prev, current: prev.current + 1, answers: originAnswerState}))
     router.replace(`/test/${router.query.id}`)
   }
 

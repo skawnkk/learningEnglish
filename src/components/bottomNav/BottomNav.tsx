@@ -29,7 +29,7 @@ function BottomNav() {
       isAnswer ? AnswerState.CORRECT : AnswerState.WRONG
     )
 
-    setTestState((prev) => ({...prev, current: prev.current + 1, answers: originAnswerState}))
+    setTestState((prev) => ({...prev, answers: originAnswerState}))
     router.replace(`/test/${router.query.id}/check`)
   }
 

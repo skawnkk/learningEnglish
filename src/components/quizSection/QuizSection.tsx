@@ -18,10 +18,11 @@ function QuizSection({questions, current}) {
       return {id: idx, word: option, selected: false}
     })
   }, [question])
+
   const chooseAnswer = (id: number) => {
     const selectedAnswer = convertedOptions.find((option) => option.id === id)
     selectedAnswer.selected = true
-    setMyAnswer((prev) => [...prev, selectedAnswer])
+    setMyAnswer((prev) => [...prev, selectedAnswer.word])
   }
 
   return (
@@ -29,7 +30,7 @@ function QuizSection({questions, current}) {
       <p className={'h4'}>{question?.answerKr}</p>
       <div className={classNames(styles.answerSection, 'flex flex-wrap')}>
         {myAnswer.map((answer, idx) => (
-          <WordTag key={`answer_${idx}`}>{answer.word}</WordTag>
+          <WordTag key={`answer_${idx}`}>{answer}</WordTag>
         ))}
       </div>
       <div className={'flex flex-col flex-1'}>
