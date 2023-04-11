@@ -2,11 +2,11 @@ import React, {useMemo} from 'react'
 import {shuffle} from '../../utils/dataCtrl'
 import {initialQuestion} from '../../types/questions'
 import {useRecoilState} from 'recoil'
-import {myAnswerAtom} from '../../state/atoms'
+import {myAnswerAtom} from '../../recoil/quiz'
 import WordTag from './WordTag'
 import classNames from 'classnames'
 import styles from './QuizSection.module.css'
-import Speaker from "./Speaker";
+import Speaker from './Speaker'
 
 function QuizSection({questions, current}) {
   const [myAnswer, setMyAnswer] = useRecoilState(myAnswerAtom)

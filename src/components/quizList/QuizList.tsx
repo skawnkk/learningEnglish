@@ -5,7 +5,7 @@ import router from 'next/router'
 import {formatDate} from '../../utils/date'
 import {getMyQuizList} from '../../utils/quiz'
 import {useRecoilState, useSetRecoilState} from 'recoil'
-import {testListAtom, testStateAtom} from '../../state/atoms'
+import {testListAtom, testStateAtom} from '../../recoil/quiz'
 
 function QuizList({testList}) {
   const setTestStateList = useSetRecoilState(testListAtom)
@@ -19,7 +19,7 @@ function QuizList({testList}) {
       setTestStateList([{...testState, id}])
     } else {
       const currentTestState = quizList.find((li) => li.id === id)
-      if(currentTestState) {
+      if (currentTestState) {
         setTestState(currentTestState)
         setTestStateList([...quizList])
 
@@ -27,7 +27,7 @@ function QuizList({testList}) {
           router.push(`/result?referrer=list`)
           return
         }
-      }else{
+      } else {
         setTestState({...testState, id})
         setTestStateList([{...testState, id}])
       }

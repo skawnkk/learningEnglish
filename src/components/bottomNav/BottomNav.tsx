@@ -4,10 +4,11 @@ import Button from '../../atomics/button/Button'
 import classNames from 'classnames'
 import styles from './BottomNav.module.css'
 import {useRecoilState, useRecoilValue} from 'recoil'
-import {isAnswerSelector, myAnswerAtom, testStateAtom} from '../../state/atoms'
+import {isAnswerSelector, myAnswerAtom, testStateAtom} from '../../recoil/quiz'
 import {useTimer} from '../../hooks/useTimer'
 import {useRouter} from 'next/router'
 import {AnswerState} from '../step/StepBar'
+import {readyTimeEndAtom} from "../../recoil/modal";
 
 function BottomNav() {
   const router = useRouter()

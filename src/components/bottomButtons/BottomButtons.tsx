@@ -2,10 +2,10 @@ import React from 'react'
 import Button from '../../atomics/button/Button'
 import styles from '../../atomics/button/Button.module.css'
 import {RESULT} from '../../pages/result'
-import classNames from "classnames";
-import {useRouter} from "next/router";
-import {useRecoilState} from "recoil";
-import {testStateAtom} from "../../state/atoms";
+import classNames from 'classnames'
+import {useRouter} from 'next/router'
+import {useRecoilState} from 'recoil'
+import {testStateAtom} from '../../recoil/quiz'
 
 interface BottomButtons {
   testResult: RESULT

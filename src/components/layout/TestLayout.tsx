@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../header/Header'
 import {useSetRecoilState} from 'recoil'
-import {myAnswerAtom} from '../../state/atoms'
+import {myAnswerAtom} from '../../recoil/quiz'
 import {useRouter} from 'next/router'
 import classNames from 'classnames'
 

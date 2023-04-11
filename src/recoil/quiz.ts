@@ -2,32 +2,28 @@ import {atom, selector} from 'recoil'
 import {initialTestState} from '../utils/quiz'
 import {initialQuestion} from '../types/questions'
 
-//testList
+//test historyList
 const testListAtom = atom({
   key: 'testList',
   default: [initialTestState],
 })
 
-//testItem
+//test currentTestState
 const testStateAtom = atom({
   key: 'testState',
   default: initialTestState,
 })
 
-//myCurrentAnswer
 const myAnswerAtom = atom({
   key: 'myAnswerAtom',
   default: [],
 })
 
-//currentQuestion
 const questionAtom = atom({
   key: 'questionAtom',
   default: initialQuestion,
 })
 
-//todo: selector로 이름 수정
-//currentAnswer
 const isAnswerSelector = selector({
   key: 'isAnswer',
   get: ({get}) => {

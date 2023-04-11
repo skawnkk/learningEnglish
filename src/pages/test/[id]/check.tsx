@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import {useRecoilState, useRecoilValue, useResetRecoilState} from 'recoil'
-import {isAnswerSelector, myAnswerAtom, testStateAtom} from '../../../state/atoms'
+import {isAnswerSelector, myAnswerAtom, testStateAtom} from '../../../recoil/quiz'
 import styles from '../../../styles/pages/Check.module.css'
 import TestLayout from '../../../components/layout/TestLayout'
 import classNames from 'classnames'

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import TestLayout from '../components/layout/TestLayout'
 import {useRecoilState, useRecoilValue} from 'recoil'
-import {myScoreResultSelector, testStateAtom} from '../state/atoms'
+import {myScoreResultSelector, testStateAtom} from '../recoil/quiz'
 import ScoreSection from '../components/result/ScoreSection'
 import BottomButtons from '../components/bottomButtons/BottomButtons'
 import {saveQuizResult} from '../utils/quiz'

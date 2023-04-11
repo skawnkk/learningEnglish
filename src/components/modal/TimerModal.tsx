@@ -4,6 +4,9 @@ import classNames from 'classnames'
 import {useTimer} from '../../hooks/useTimer'
 import Modal from '../../atomics/modal/Modal'
 import {useModal} from '../../atomics/modal/useModal'
+import {useRecoilValue, useSetRecoilState} from "recoil";
+import {readyTimeEndAtom} from "../../recoil/modal";
+import {testStateAtom} from "../../recoil/quiz";
 
 function TimerModal() {
   const {closeModal} = useModal()
