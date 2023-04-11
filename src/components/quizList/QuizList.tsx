@@ -48,7 +48,6 @@ function QuizList({testList}) {
               src={'/icon/arrow_right.svg'}
               width={7}
               height={12}
-              layout={'fixed'}
               alt={'icon_detail'}
             />
           </div>

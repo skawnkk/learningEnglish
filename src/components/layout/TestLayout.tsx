@@ -15,7 +15,7 @@ function TestLayout({className, children}: TestLayoutProps) {
 
   const setMyAnswerList = useSetRecoilState(myAnswerAtom)
   const moveBack = () => {
-    router.back()
+    router.push('/')
     setMyAnswerList([])
   }
 

@@ -1,1 +1,1 @@
-.header {  position: relative;  text-align: center;  margin: 20px auto;}.clear {    position: absolute;    right: 16px;    top:20px;}
+.header {  position: sticky;  top: 0;  text-align: center;  padding: 20px 0;  background: #fff;}.clear {  position: absolute;  right: 16px;  top: 20px;}
