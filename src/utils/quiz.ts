@@ -6,7 +6,7 @@ export interface MyTestState {
   current: number //현재 풀고 있던 문제 번호
   complete: boolean //완료여부
   completeCount: number //완료횟수(시도횟수)
-  answers: Answer[]
+  answers: AnswerState[]
 }
 export type Answer = {no:number, state:AnswerState}
 
@@ -29,5 +29,6 @@ const getMyQuizList = () => {
 const getMyQuizState = (id: number):MyTestState => {
   return getMyQuizList().find((li) => li.id === id)
 }
+
 
 export {getMyQuizList, getMyQuizState}

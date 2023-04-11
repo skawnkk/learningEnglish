@@ -1,4 +1,4 @@
-import {atom} from 'recoil'
+import {atom, selector} from 'recoil'
 import {initialTestState} from '../utils/quiz'
 import {initialQuestion} from '../types/questions'
 
@@ -26,4 +26,13 @@ const questionAtom = atom({
   default: initialQuestion,
 })
 
-export {testListAtom, testStateAtom, myAnswerAtom, questionAtom}
+const isAnswerAtom = selector({
+  key: 'isAnswer',
+  get: ({get}) => {
+    const question = get(questionAtom)
+    const myAnswer = get(myAnswerAtom)
+    return question.words.join(' ') === myAnswer.join(' ')
+  },
+})
+
+export {testListAtom, testStateAtom, myAnswerAtom, questionAtom, isAnswerAtom}

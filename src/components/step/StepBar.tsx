@@ -50,7 +50,7 @@ function StepBar({stepList, current}: StepBar) {
     <>
       <div className={classNames(styles.stepBar, 'flex justify-around')}>
         {stepList.map((step, idx) => (
-          <Step key={idx} state={step.state} style={{width: `calc(90%/${stepList.length})`}} />
+          <Step key={idx} state={step} style={{width: `calc(90%/${stepList.length})`}} />
         ))}
       </div>
       <div className={styles.progress}>
