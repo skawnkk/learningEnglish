@@ -7,4 +7,8 @@ const shuffle = (list: any[]) => {
   return list
 }
 
-export {shuffle}
+const getRandomNumber = (n:number) =>{
+  return Math.ceil(Math.random()*n)
+}
+
+export {shuffle, getRandomNumber}
