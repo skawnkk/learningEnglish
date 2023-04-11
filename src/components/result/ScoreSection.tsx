@@ -3,16 +3,19 @@ import Image from 'next/image'
 import {RESULT} from '../../pages/result'
 import {getRandomNumber} from '../../utils/dataCtrl'
 import {useRecoilValue} from 'recoil'
-import {testStateAtom} from '../../state/atoms'
+import {myScoreResultSelector, testStateAtom} from '../../state/atoms'
 import {AnswerState} from '../step/StepBar'
 import styles from '../../styles/pages/Result.module.css'
+import classNames from 'classnames'
 
 interface ScoreSectionProp {
   testResult: RESULT
 }
 
 function ScoreSection({testResult}: ScoreSectionProp) {
-  const testState = useRecoilValue(testStateAtom)
+  const {answers, completeCount} = useRecoilValue(testStateAtom)
+  const {totalCount, correctAnswerCount} = useRecoilValue(myScoreResultSelector)
+
   const randomNumber = getRandomNumber(3)
   const result = {
     imageSrc:
@@ -20,8 +23,8 @@ function ScoreSection({testResult}: ScoreSectionProp) {
         ? `/image/result_${testResult}.png`
         : `/image/result_${testResult}_${randomNumber}.png`,
     message: {
-      perfect: '완벽. 모두 맞혔어요!',
-      good: '좋아요. 멋진 점수에요!',
+      perfect: <p>완벽. 모두 맞혔어요!</p>,
+      good: <p>좋아요. 멋진 점수에요!</p>,
       fail: (
         <>
           <p>아쉬워요...</p>
@@ -47,7 +50,7 @@ function ScoreSection({testResult}: ScoreSectionProp) {
       <div className={styles.resultText}>{result.message[testResult]}</div>
 
       <div className={'flex gap-[6px] justify-center'}>
-        {testState.answers.map((answer, idx) => {
+        {answers.map((answer, idx) => {
           const iconSrc =
             answer === AnswerState.CORRECT ? result.iconSrc : '/icon/result_default_check.svg'
           return (
@@ -57,6 +60,16 @@ function ScoreSection({testResult}: ScoreSectionProp) {
           )
         })}
       </div>
+
+      <div className={classNames(styles.resultScore, styles[testResult])}>
+        {testResult === RESULT.PERFECT ? '만점' : `${correctAnswerCount}/${totalCount}`}
+      </div>
+
+      {completeCount > 1 && (
+        <p className={classNames(styles.resultText, styles[testResult])}>
+          {completeCount}번째 시도
+        </p>
+      )}
     </div>
   )
 }

@@ -6,3 +6,25 @@
   text-align: center;
   margin: 24px auto 16px;
 }
+
+.resultScore {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 48px;
+  text-align: center;
+}
+
+.trialText {
+}
+
+.perfect {
+  color: #0db6ff;
+}
+
+.good {
+  color: #00d6c9;
+}
+
+.fail {
+  color: #ff5f5f;
+}

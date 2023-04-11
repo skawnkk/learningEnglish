@@ -18,12 +18,18 @@ function QuizList({testList}) {
       setTestState({...testState, id})
       setTestStateList([{...testState, id}])
     } else {
-      const currentTestState = quizList.find((li) => li.id === id)[0]
-      setTestState(currentTestState)
-      setTestStateList([...quizList])
-      if (testState?.complete) {
-        router.push(`/result?test=${id}`)
-        return
+      const currentTestState = quizList.find((li) => li.id === id)
+      if(currentTestState) {
+        setTestState(currentTestState)
+        setTestStateList([...quizList])
+
+        if (currentTestState?.complete) {
+          router.push(`/result?referrer=list`)
+          return
+        }
+      }else{
+        setTestState({...testState, id})
+        setTestStateList([{...testState, id}])
       }
     }
     router.push(`/test/${id}`)
@@ -38,7 +44,13 @@ function QuizList({testList}) {
               <p>{li.subtitle}</p>
               <p className={styles.date}>{formatDate(new Date(li.startDatetime))}</p>
             </div>
-            <Image src={'/icon/arrow_right.svg'} width={7} height={12} layout={'fixed'} alt={'icon_detail'} />
+            <Image
+              src={'/icon/arrow_right.svg'}
+              width={7}
+              height={12}
+              layout={'fixed'}
+              alt={'icon_detail'}
+            />
           </div>
         )
       })}

@@ -1,8 +1,11 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import TestLayout from '../components/layout/TestLayout'
-import {useRecoilState} from 'recoil'
-import {testStateAtom} from '../state/atoms'
-import ScoreSection from "../components/result/ScoreSection";
+import {useRecoilState, useRecoilValue} from 'recoil'
+import {myScoreResultSelector, testStateAtom} from '../state/atoms'
+import ScoreSection from '../components/result/ScoreSection'
+import BottomButtons from '../components/bottomButtons/BottomButtons'
+import {saveQuizResult} from '../utils/quiz'
+import {useRouter} from 'next/router'
 
 export enum RESULT {
   PERFECT = 'perfect',
@@ -11,6 +14,7 @@ export enum RESULT {
 }
 
 function Result() {
+  const router = useRouter()
   const [testState, setTestState] = useRecoilState(testStateAtom)
   const getTestResult = () => {
     const wrongAnswerCount = testState.answers.reduce((acc, curr) => {
@@ -22,6 +26,20 @@ function Result() {
     return RESULT.GOOD
   }
   const testResult = getTestResult()
+
+  useEffect(() => {
+    if (router.query.referrer) return
+    const originTestResult = {...testState}
+    const newTestResult = {
+      ...originTestResult,
+      complete: true,
+      completeCount: originTestResult.completeCount + 1,
+    }
+    setTestState(newTestResult)
+    saveQuizResult(newTestResult)
+    //todo:나중에 데이터 complete false, answers [], current 0로 만들고 재시작하기
+  }, [router.query.referrer])
+
   return (
     <TestLayout className={'pb-[16px]'}>
       <ScoreSection testResult={testResult} />

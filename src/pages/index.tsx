@@ -43,7 +43,7 @@ export const getServerSideProps = async (ctx) => {
 
   return {
     props: {
-      testList: sortedTestList,
+      testList: sortedTestList||[],
     },
   }
 }

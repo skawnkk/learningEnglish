@@ -26,9 +26,15 @@ const getMyQuizList = () => {
   return myQuizList?JSON.parse(myQuizList):[]
 }
 
-const getMyQuizState = (id: number):MyTestState => {
-  return getMyQuizList().find((li) => li.id === id)
+const saveQuizResult = (data:MyTestState) => {
+  const originResultList = getMyQuizList()
+  const newResultIndex = originResultList.findIndex((li)=>li.id === data.id)
+  if(newResultIndex>-1){
+    originResultList.splice(newResultIndex, 1, data)
+    localStorage.setItem(KEY, JSON.stringify(originResultList))
+  }else{
+    localStorage.setItem(KEY, JSON.stringify([...originResultList, data]))
+  }
 }
 
-
-export {getMyQuizList, getMyQuizState}
+export {getMyQuizList, saveQuizResult}
