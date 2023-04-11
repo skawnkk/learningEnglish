@@ -1,6 +1,6 @@
 .answerSection {
-  gap: 4px;
   margin-top: 40px;
+  height: 216px;
 }
 
 .optionSection {
@@ -11,6 +11,7 @@
 }
 
 .wordTag {
+  height: 40px;
   font-weight: 500;
   font-size: 14px;
   padding: 13px 16px;
@@ -25,7 +26,7 @@
   color: #d2d8e1;
 }
 
-.badge{
+.badge {
   position: absolute;
   right: -3px;
   display: flex;

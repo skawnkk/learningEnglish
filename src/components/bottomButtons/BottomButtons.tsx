@@ -25,7 +25,7 @@ function BottomButtons({testResult}: BottomButtons) {
   }
 
   return (
-    <div className={'flex gap-[8px]'}>
+    <div className={'flex gap-[8px] whitespace-nowrap'}>
       {testResult !== RESULT.PERFECT && (
         <Button
           className={classNames(!needTestAgain && styles.ghost, 'flex-1')}
