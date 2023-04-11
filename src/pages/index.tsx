@@ -4,7 +4,7 @@ import styles from '../styles/pages/TestList.module.css'
 import QuizList from "../components/quizList/QuizList";
 const inter = Inter({subsets: ['latin']})
 
-export default function TestList({testList}) {
+export default function TestListPage({testList}) {
 
   return (
     <div>
@@ -27,6 +27,8 @@ export default function TestList({testList}) {
     </div>
   )
 }
+
+
 type TestList = testItem[]
 type testItem = {
   id: number
@@ -34,16 +36,16 @@ type testItem = {
   startDatetime: string
 }
 
-export const getServerSideProps = async (ctx) => {
+export const getServerSideProps = async () => {
   const testList: TestList = await fetch('https://qualson-test.vercel.app/api/test/list')
     .then((res) => res.json())
     .then((res) => res.data)
-
-  const sortedTestList = testList?.sort((prev, next) => new Date(next.startDatetime).getTime() - new Date(prev.startDatetime).getTime())
+    .catch(()=>[])
+  testList?.sort((prev, next) => new Date(next.startDatetime).getTime() - new Date(prev.startDatetime).getTime())
 
   return {
     props: {
-      testList: sortedTestList||[],
+      testList: testList,
     },
   }
 }

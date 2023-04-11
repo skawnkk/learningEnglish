@@ -19,40 +19,35 @@ function TestPage() {
   const [questions, setQuestions] = useState([])
   const [testState, setTestState] = useRecoilState(testStateAtom)
   const setQuestion = useSetRecoilState(questionAtom)
+  const fetchQuestions = () => {
+    getQuestions({
+      id,
+      onSuccess: ({data}) => {
+        setQuestions(data.content)
+        updateAnswerState(data.content.length)
+        setQuestion(data.content[testState.current])
+      },
+      onFail: () => {
+        openModal(<ErrorModal onClickFetchAgain={onClickFetchAgain} onClickBack={moveBack} />)
+      },
+    })
+  }
   const onClickFetchAgain = () => {
     closeModal()
-    getQuestions()
+    fetchQuestions()
   }
   const moveBack = () => {
     router.back()
     closeModal()
   }
-  const getQuestions = () => {
-    fetch(`https://qualson-test.vercel.app/api/test/${id}`)
-      .then((res) => {
-        if (res.status === 500) {
-          throw Error()
-        }
-        return res.json()
-      })
-      .then((res) => {
-        setQuestions(res.data.content)
-        updateAnswerState(res.data.content.length)
-        setQuestion(res.data.content[testState.current])
-      })
-      .catch((err) => {
-        openModal(<ErrorModal onClickFetchAgain={onClickFetchAgain} onClickBack={moveBack} />)
-        console.log(err)
-      })
-  }
 
   useEffect(() => {
     if (!id) return
-    if(testState.current === 0) {
+    if (testState.current === 0) {
       openModal(<TimerModal />)
     }
 
-    getQuestions()
+    fetchQuestions()
   }, [id])
 
   const updateAnswerState = (questionLength: number) => {
@@ -69,13 +64,11 @@ function TestPage() {
   }
 
   return (
-    <>
-      <TestLayout>
-        <StepBar stepList={testState.answers} current={testState.current} />
-        <QuizSection questions={questions} current={testState.current} />
-        <BottomNav />
-      </TestLayout>
-    </>
+    <TestLayout>
+      <StepBar stepList={testState.answers} current={testState.current} />
+      <QuizSection questions={questions} current={testState.current} />
+      <BottomNav />
+    </TestLayout>
   )
 }
 
