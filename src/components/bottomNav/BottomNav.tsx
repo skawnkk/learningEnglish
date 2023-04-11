@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import TestTimer from './TestTimer'
 import Button from '../../atomics/button/Button'
 import classNames from 'classnames'
@@ -15,11 +15,11 @@ function BottomNav() {
   const myAnswerList = useRecoilValue(myAnswerAtom)
   const [testState, setTestState] = useRecoilState(testStateAtom)
   const isAnswer = useRecoilValue(isAnswerAtom)
-
   const getIsActiveButton = () => {
     if (time < 1 || myAnswerList.length === 0) return false
     return true
   }
+  const isActiveButton = getIsActiveButton()
 
   const checkAnswer = () => {
     let originAnswerState = [...testState.answers]
@@ -33,7 +33,12 @@ function BottomNav() {
     router.replace(`/test/${router.query.id}/check`)
   }
 
-  const isActiveButton = getIsActiveButton()
+  useEffect(()=>{
+    if(time<1){
+      checkAnswer()
+    }
+  },[time])
+
   return (
     <div className={classNames(styles.bottomNav, 'flex justify-between')}>
       <TestTimer time={time} />
