@@ -16,11 +16,9 @@ export enum RESULT {
 function Result() {
   const router = useRouter()
   const [testState, setTestState] = useRecoilState(testStateAtom)
-  const getTestResult = () => {
-    const wrongAnswerCount = testState.answers.reduce((acc, curr) => {
-      return acc + curr
-    }, 0)
+  const {wrongAnswerCount} = useRecoilValue(myScoreResultSelector)
 
+  const getTestResult = () => {
     if (wrongAnswerCount === 0) return RESULT.PERFECT
     if (wrongAnswerCount > 3) return RESULT.FAIL
     return RESULT.GOOD

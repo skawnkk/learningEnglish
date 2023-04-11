@@ -26,8 +26,9 @@ const questionAtom = atom({
   default: initialQuestion,
 })
 
+//todo: selector로 이름 수정
 //currentAnswer
-const isAnswerAtom = selector({
+const isAnswerSelector = selector({
   key: 'isAnswer',
   get: ({get}) => {
     const question = get(questionAtom)
@@ -36,4 +37,20 @@ const isAnswerAtom = selector({
   },
 })
 
-export {testListAtom, testStateAtom, myAnswerAtom, questionAtom, isAnswerAtom}
+const myScoreResultSelector = selector({
+  key: 'myScoreResult',
+  get: ({get}) => {
+    const {answers} = get(testStateAtom)
+    const wrongAnswerCount = answers.reduce((acc, curr) => {
+      return acc + curr
+    }, 0)
+
+    return {
+      wrongAnswerCount,
+      correctAnswerCount: answers.length - wrongAnswerCount,
+      totalCount: answers.length,
+    }
+  },
+})
+
+export {testListAtom, testStateAtom, myAnswerAtom, questionAtom, isAnswerSelector, myScoreResultSelector}

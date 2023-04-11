@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import {useRecoilState, useRecoilValue, useResetRecoilState} from 'recoil'
-import {isAnswerAtom, myAnswerAtom, testStateAtom} from '../../../state/atoms'
+import {isAnswerSelector, myAnswerAtom, testStateAtom} from '../../../state/atoms'
 import styles from '../../../styles/pages/Check.module.css'
 import TestLayout from '../../../components/layout/TestLayout'
 import classNames from 'classnames'
@@ -11,11 +11,11 @@ import StepBar, {AnswerState} from '../../../components/step/StepBar'
 
 function Check() {
   const router = useRouter()
-  const isAnswer = useRecoilValue(isAnswerAtom)
+  const isAnswer = useRecoilValue(isAnswerSelector)
   const resetMyAnswer = useResetRecoilState(myAnswerAtom)
   const [testState, setTestState] = useRecoilState(testStateAtom)
   const {answers, current} = testState
-  const isLastQuiz = answers.length === (current+1)
+  const isLastQuiz = answers.length === current + 1
 
   const goNextQuiz = () => {
     resetMyAnswer()
