@@ -17,36 +17,37 @@ function TestPage() {
   const [questions, setQuestions] = useState([])
   const [testState, setTestState] = useRecoilState(testStateAtom)
   const setQuestion = useSetRecoilState(questionAtom)
+  const onClickFetchAgain = () => {
+    closeModal()
+    getQuestions()
+  }
+  const moveBack = () => {
+    router.back()
+    closeModal()
+  }
+  const getQuestions = () => {
+    fetch(`https://qualson-test.vercel.app/api/test/${id}`)
+      .then((res) => {
+        if (res.status === 500) {
+          throw Error()
+        }
+        return res.json()
+      })
+      .then((res) => {
+        setQuestions(res.data.content)
+        updateAnswerState(res.data.content.length)
+        setQuestion(res.data.content[testState.current])
+      })
+      .catch((err) => {
+        openModal(<ErrorModal onClickFetchAgain={onClickFetchAgain} onClickBack={moveBack} />)
+        console.log(err)
+      })
+  }
 
   useEffect(() => {
     if (!id) return
-    openModal(<TimerModal />)
-    const onClickFetchAgain = () =>{
-      closeModal()
-      getQuestions()
-    }
-    const moveBack = () => {
-      router.back()
-      closeModal()
-    }
-
-    const getQuestions = () => {
-      fetch(`https://qualson-test.vercel.app/api/test/${id}`)
-        .then((res) => {
-          if (res.status === 500) {
-            throw Error()
-          }
-          return res.json()
-        })
-        .then((res) => {
-          setQuestions(res.data.content)
-          updateAnswerState(res.data.content.length)
-          setQuestion(res.data.content[testState.current])
-        })
-        .catch((err) => {
-          openModal(<ErrorModal onClickFetchAgain={onClickFetchAgain} onClickBack={moveBack} />)
-          console.log(err)
-        })
+    if(testState.current === 0) {
+      openModal(<TimerModal />)
     }
 
     getQuestions()

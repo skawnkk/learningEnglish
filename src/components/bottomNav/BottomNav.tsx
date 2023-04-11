@@ -12,10 +12,12 @@ import {readyTimeEndAtom} from "../../recoil/modal";
 
 function BottomNav() {
   const router = useRouter()
-  const time = useTimer(45, 'ss')
-  const myAnswerList = useRecoilValue(myAnswerAtom)
   const [testState, setTestState] = useRecoilState(testStateAtom)
+  const myAnswerList = useRecoilValue(myAnswerAtom)
   const isAnswer = useRecoilValue(isAnswerSelector)
+  const isReadyTimeEnd = useRecoilValue(readyTimeEndAtom)
+  const time = useTimer({limitTime: 45, format: 'ss', start:isReadyTimeEnd})
+
   const getIsActiveButton = () => {
     if (time < 1 || myAnswerList.length === 0) return false
     return true
@@ -34,11 +36,11 @@ function BottomNav() {
     router.replace(`/test/${router.query.id}/check`)
   }
 
-  useEffect(()=>{
-    if(time<1){
+  useEffect(() => {
+    if (time < 1) {
       checkAnswer()
     }
-  },[time])
+  }, [time])
 
   return (
     <div className={classNames(styles.bottomNav, 'flex justify-between')}>
