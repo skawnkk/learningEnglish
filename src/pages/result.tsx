@@ -6,12 +6,7 @@ import ScoreSection from '../components/result/ScoreSection'
 import BottomButtons from '../components/bottomButtons/BottomButtons'
 import {saveQuizResult} from '../utils/quiz'
 import {useRouter} from 'next/router'
-
-export enum RESULT {
-  PERFECT = 'perfect',
-  GOOD = 'good',
-  FAIL = 'fail',
-}
+import {RESULT} from '../types'
 
 function Result() {
   const router = useRouter()

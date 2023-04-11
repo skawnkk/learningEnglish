@@ -1,23 +1,4 @@
-import {AnswerState} from '../components/step/StepBar'
-
-export interface MyTestState {
-  id: number
-  startDatetime: string
-  current: number //현재 풀고 있던 문제 번호
-  complete: boolean //완료여부
-  completeCount: number //완료횟수(시도횟수)
-  answers: AnswerState[]
-}
-export type Answer = {no:number, state:AnswerState}
-
-export const initialTestState:MyTestState= {
-  id:0,
-  startDatetime: '',
-  current: 0,
-  complete: false,
-  completeCount: 0,
-  answers:[],
-}
+import {MyTestState} from '../types'
 
 const KEY = 'my-quiz-list'
 

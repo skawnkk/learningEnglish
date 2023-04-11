@@ -1,16 +1,32 @@
 import {atom, selector} from 'recoil'
-import {initialTestState} from '../utils/quiz'
-import {initialQuestion} from '../types/questions'
+import {MyTestState, Question} from '../types'
+import {readyTimeEndAtom} from './modal'
+
+export const initialQuestion: Question = {
+  answerKr: '',
+  distractors: [],
+  tts: '',
+  words: [],
+}
+
+export const initialTestState: MyTestState = {
+  id: 0,
+  startDatetime: '',
+  current: 0,
+  complete: false,
+  completeCount: 0,
+  answers: [],
+}
 
 //test historyList
 const testListAtom = atom({
-  key: 'testList',
+  key: 'testListAtom',
   default: [initialTestState],
 })
 
 //test currentTestState
 const testStateAtom = atom({
-  key: 'testState',
+  key: 'testStateAtom',
   default: initialTestState,
 })
 
@@ -25,7 +41,7 @@ const questionAtom = atom({
 })
 
 const isAnswerSelector = selector({
-  key: 'isAnswer',
+  key: 'isAnswerSelector',
   get: ({get}) => {
     const question = get(questionAtom)
     const myAnswer = get(myAnswerAtom)
@@ -34,7 +50,7 @@ const isAnswerSelector = selector({
 })
 
 const myScoreResultSelector = selector({
-  key: 'myScoreResult',
+  key: 'myScoreResultSelector',
   get: ({get}) => {
     const {answers} = get(testStateAtom)
     const wrongAnswerCount = answers.reduce((acc, curr) => {
@@ -48,5 +64,26 @@ const myScoreResultSelector = selector({
     }
   },
 })
+//todo:중간에 게임을 관두면?
 
-export {testListAtom, testStateAtom, myAnswerAtom, questionAtom, isAnswerSelector, myScoreResultSelector}
+//테스트 다시하기 클릭 시
+const resetTestInfo = selector({
+  key: 'resetTestInfo',
+  get: ({get}) => {},
+  set: ({get, set, reset}, newValue) => {
+    const testState = get(testStateAtom)
+    set(testStateAtom, {...testState, complete: false, answers: [], current: 0})
+    reset(myAnswerAtom)
+    reset(readyTimeEndAtom)
+  },
+})
+
+export {
+  testListAtom,
+  testStateAtom,
+  myAnswerAtom,
+  questionAtom,
+  isAnswerSelector,
+  myScoreResultSelector,
+  resetTestInfo,
+}

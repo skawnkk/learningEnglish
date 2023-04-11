@@ -1,12 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
-import {RESULT} from '../../pages/result'
 import {getRandomNumber} from '../../utils/dataCtrl'
 import {useRecoilValue} from 'recoil'
 import {myScoreResultSelector, testStateAtom} from '../../recoil/quiz'
-import {AnswerState} from '../step/StepBar'
 import styles from '../../styles/pages/Result.module.css'
 import classNames from 'classnames'
+import {AnswerState, RESULT} from '../../types'
 
 interface ScoreSectionProp {
   testResult: RESULT
@@ -53,6 +52,7 @@ function ScoreSection({testResult}: ScoreSectionProp) {
         {answers.map((answer, idx) => {
           const iconSrc =
             answer === AnswerState.CORRECT ? result.iconSrc : '/icon/result_default_check.svg'
+
           return (
             <div key={`answer_${idx}`}>
               <Image src={iconSrc} width={32} height={32} alt={'check'} />

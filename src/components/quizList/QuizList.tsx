@@ -3,7 +3,7 @@ import styles from '../../styles/pages/TestList.module.css'
 import Image from 'next/image'
 import router from 'next/router'
 import {formatDate} from '../../utils/date'
-import {getMyQuizList} from '../../utils/quiz'
+import {getMyQuizList, getQuizHistory} from '../../utils/quiz'
 import {useRecoilState, useSetRecoilState} from 'recoil'
 import {testListAtom, testStateAtom} from '../../recoil/quiz'
 

@@ -7,7 +7,8 @@ import TestLayout from '../../../components/layout/TestLayout'
 import classNames from 'classnames'
 import Button from '../../../atomics/button/Button'
 import {useRouter} from 'next/router'
-import StepBar, {AnswerState} from '../../../components/step/StepBar'
+import StepBar from '../../../components/step/StepBar'
+import {AnswerState} from '../../../types'
 
 function Check() {
   const router = useRouter()

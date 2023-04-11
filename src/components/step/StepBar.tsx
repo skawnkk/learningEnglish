@@ -1,14 +1,7 @@
 import React from 'react'
 import styles from './StepBar.module.css'
 import classNames from 'classnames'
-import {Answer, MyTestState} from "../../utils/quiz";
-
-export enum AnswerState {
-  CORRECT,
-  WRONG,
-  TRYING,
-  TODO,
-}
+import {Answer, AnswerState} from '../../types'
 
 interface Step {
   state: AnswerState
@@ -45,7 +38,6 @@ interface StepBar {
 }
 
 function StepBar({stepList, current}: StepBar) {
-
   return (
     <>
       <div className={classNames(styles.stepBar, 'flex justify-around')}>
@@ -54,7 +46,7 @@ function StepBar({stepList, current}: StepBar) {
         ))}
       </div>
       <div className={styles.progress}>
-        {current+1}/{stepList.length}
+        {current + 1}/{stepList.length}
       </div>
     </>
   )

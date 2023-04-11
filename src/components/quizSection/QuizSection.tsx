@@ -1,8 +1,7 @@
 import React, {useMemo} from 'react'
 import {shuffle} from '../../utils/dataCtrl'
-import {initialQuestion} from '../../types/questions'
 import {useRecoilState} from 'recoil'
-import {myAnswerAtom} from '../../recoil/quiz'
+import {initialQuestion, myAnswerAtom} from '../../recoil/quiz'
 import WordTag from './WordTag'
 import classNames from 'classnames'
 import styles from './QuizSection.module.css'
@@ -10,8 +9,8 @@ import Speaker from './Speaker'
 
 function QuizSection({questions, current}) {
   const [myAnswer, setMyAnswer] = useRecoilState(myAnswerAtom)
-
   const question = questions[current] || initialQuestion
+
   const convertedOptions = useMemo(() => {
     const options = shuffle([...question.distractors, ...question.words])
     return options.map((option, idx) => {

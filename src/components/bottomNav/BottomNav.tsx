@@ -7,8 +7,8 @@ import {useRecoilState, useRecoilValue} from 'recoil'
 import {isAnswerSelector, myAnswerAtom, testStateAtom} from '../../recoil/quiz'
 import {useTimer} from '../../hooks/useTimer'
 import {useRouter} from 'next/router'
-import {AnswerState} from '../step/StepBar'
-import {readyTimeEndAtom} from "../../recoil/modal";
+import {readyTimeEndAtom} from '../../recoil/modal'
+import {AnswerState} from '../../types'
 
 function BottomNav() {
   const router = useRouter()
@@ -16,7 +16,7 @@ function BottomNav() {
   const myAnswerList = useRecoilValue(myAnswerAtom)
   const isAnswer = useRecoilValue(isAnswerSelector)
   const isReadyTimeEnd = useRecoilValue(readyTimeEndAtom)
-  const time = useTimer({limitTime: 45, format: 'ss', start:isReadyTimeEnd})
+  const time = useTimer({limitTime: 45, format: 'ss', start: isReadyTimeEnd})
 
   const getIsActiveButton = () => {
     if (time < 1 || myAnswerList.length === 0) return false

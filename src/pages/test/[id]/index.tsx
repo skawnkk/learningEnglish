@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from 'next/router'
-import TimerModal from '../../../components/modal/TimerModal'
-import StepBar, {AnswerState} from '../../../components/step/StepBar'
-import QuizSection from '../../../components/quizSection/QuizSection'
 import {useRecoilState, useSetRecoilState} from 'recoil'
+import {useModal} from '../../../atomics/modal/useModal'
 import {questionAtom, testStateAtom} from '../../../recoil/quiz'
+import StepBar from '../../../components/step/StepBar'
+import TimerModal from '../../../components/modal/TimerModal'
+import QuizSection from '../../../components/quizSection/QuizSection'
 import BottomNav from '../../../components/bottomNav/BottomNav'
 import TestLayout from '../../../components/layout/TestLayout'
-import {useModal} from '../../../atomics/modal/useModal'
 import ErrorModal from '../../../components/modal/ErrorModal'
+import {getQuestions} from '../../../service/getQuestions'
+import {AnswerState} from '../../../types'
 
 function TestPage() {
   const {openModal, closeModal} = useModal()
