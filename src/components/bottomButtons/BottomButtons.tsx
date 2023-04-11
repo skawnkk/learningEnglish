@@ -12,20 +12,31 @@ interface BottomButtons {
 }
 
 function BottomButtons({testResult}: BottomButtons) {
-  const [testState, setTestState] = useRecoilState(testStateAtom)
+  const testState = useRecoilValue(testStateAtom)
+  const resetMyTestState = useSetRecoilState(resetTestInfo)
   const router = useRouter()
-  const testAgain = () =>{
-    setTestState(prev => ({...prev, complete: false, answers:[], current:0}))
+  const needTestAgain = testState.completeCount > 1
+  const testAgain = () => {
+    resetMyTestState(null)
     router.push(`/test/${testState.id}`)
   }
-  const endTest = () =>{
+  const endTest = () => {
     router.push('/')
   }
 
   return (
     <div className={'flex gap-[8px]'}>
-      {testResult !== RESULT.PERFECT && <Button className={classNames(styles.ghost, 'flex-1')} onClick={testAgain}>다시 풀어보기</Button>}
-      <Button className={'flex-1'} onClick={endTest}>확인</Button>
+      {testResult !== RESULT.PERFECT && (
+        <Button
+          className={classNames(!needTestAgain && styles.ghost, 'flex-1')}
+          onClick={testAgain}
+        >
+          다시 풀어보기
+        </Button>
+      )}
+      <Button className={classNames(needTestAgain && styles.ghost, 'flex-1')} onClick={endTest}>
+        확인
+      </Button>
     </div>
   )
 }
