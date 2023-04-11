@@ -7,10 +7,10 @@ interface ModalProp {
   children: React.ReactElement
 }
 
-function Modal({condition, children}: ModalProp) {
+function Modal({children}: ModalProp) {
 
   return (
-    <div className={classNames(styles.modal, styles.fullHeight, condition ? styles.show : styles.none)}>
+    <div className={classNames(styles.modal, styles.fullHeight)}>
       <div className={classNames(styles.modalContents, styles.fullHeight)}>{children}</div>
     </div>
   )

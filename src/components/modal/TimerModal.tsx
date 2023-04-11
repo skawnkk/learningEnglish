@@ -1,15 +1,22 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import styles from './modal.module.css'
 import classNames from 'classnames'
 import {useTimer} from '../../hooks/useTimer'
 import Modal from '../../atomics/modal/Modal'
+import {useModal} from '../../atomics/modal/useModal'
 
 function TimerModal() {
+  const {closeModal} = useModal()
   const time = useTimer(3)
-  const condition = time>0
+
+  useEffect(() => {
+    if (time < 1) {
+      closeModal()
+    }
+  }, [time])
 
   return (
-    <Modal condition={condition}>
+    <Modal>
       <div className={classNames(styles.timer, 'flex flex-col items-center')}>
         <div className={styles.time}>{time}</div>
         <p className={'h4'}>곧 테스트가 시작됩니다!</p>

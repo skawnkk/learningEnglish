@@ -6,9 +6,11 @@ import QuizSection from '../../../components/quizSection/QuizSection'
 import {useRecoilState, useSetRecoilState} from 'recoil'
 import {questionAtom, testStateAtom} from '../../../state/atoms'
 import BottomNav from '../../../components/bottomNav/BottomNav'
-import TestLayout from "../../../components/layout/TestLayout";
+import TestLayout from '../../../components/layout/TestLayout'
+import {useModal} from "../../../atomics/modal/useModal";
 
 function TestPage() {
+  const {openModal}=useModal()
   const router = useRouter()
   const id = Number(router.query.id as string)
   const [questions, setQuestions] = useState([])
@@ -17,7 +19,7 @@ function TestPage() {
 
   useEffect(() => {
     if (!id) return
-
+    openModal(<TimerModal/>)
     const getQuestions = () => {
       fetch(`https://qualson-test.vercel.app/api/test/${id}`)
         .then((res) => {
@@ -55,7 +57,6 @@ function TestPage() {
 
   return (
     <>
-      <TimerModal />
       <TestLayout>
         <QuizSection questions={questions} current={testState.current} />
         <BottomNav />
