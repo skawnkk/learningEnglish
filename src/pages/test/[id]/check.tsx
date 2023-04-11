@@ -26,6 +26,7 @@ function Check() {
 
   return (
     <TestLayout className={styles.checkLayout}>
+      <StepBar stepList={testState.answers} current={testState.current} />
       {isAnswer ? (
         <div className={classNames('wrapper', styles.wrap)}>
           <Image src={'/icon/test_success.png'} width={160} height={160} alt={'test-success'} />

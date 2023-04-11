@@ -1,8 +1,7 @@
 import React from 'react'
 import Header from '../header/Header'
-import StepBar from '../step/StepBar'
-import {useRecoilValue, useSetRecoilState} from 'recoil'
-import {myAnswerAtom, testStateAtom} from '../../state/atoms'
+import {useSetRecoilState} from 'recoil'
+import {myAnswerAtom} from '../../state/atoms'
 import {useRouter} from 'next/router'
 import classNames from 'classnames'
 
@@ -13,7 +12,6 @@ interface TestLayoutProps {
 
 function TestLayout({className, children}: TestLayoutProps) {
   const router = useRouter()
-  const testState = useRecoilValue(testStateAtom)
 
   const setMyAnswerList = useSetRecoilState(myAnswerAtom)
   const moveBack = () => {
@@ -26,7 +24,6 @@ function TestLayout({className, children}: TestLayoutProps) {
       <Header clear onClick={moveBack}>
         테스트
       </Header>
-      <StepBar stepList={testState.answers} current={testState.current} />
       <div className={'flex flex-col flex-1'}>{children}</div>
     </div>
   )

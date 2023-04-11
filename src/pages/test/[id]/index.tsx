@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from 'next/router'
 import TimerModal from '../../../components/modal/TimerModal'
-import {AnswerState} from '../../../components/step/StepBar'
+import StepBar, {AnswerState} from '../../../components/step/StepBar'
 import QuizSection from '../../../components/quizSection/QuizSection'
 import {useRecoilState, useSetRecoilState} from 'recoil'
 import {questionAtom, testStateAtom} from '../../../state/atoms'
@@ -68,6 +68,7 @@ function TestPage() {
   return (
     <>
       <TestLayout>
+        <StepBar stepList={testState.answers} current={testState.current} />
         <QuizSection questions={questions} current={testState.current} />
         <BottomNav />
       </TestLayout>
