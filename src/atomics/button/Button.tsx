@@ -5,13 +5,20 @@ import classNames from 'classnames'
 interface ButtonProps {
   onClick?: () => void
   disabled?: boolean
+  className: string
   children: React.ReactElement
 }
 
-function Button({onClick = () => {}, disabled = false, children, ...restProps}: ButtonProps) {
+function Button({
+  onClick = () => {},
+  disabled = false,
+  className,
+  children,
+  ...restProps
+}: ButtonProps) {
   return (
     <button
-      className={classNames(styles.basicButton, disabled && styles.basicButtonDisabled)}
+      className={classNames(styles.basicButton, disabled && styles.basicButtonDisabled, className)}
       onClick={onClick}
       disabled={disabled}
       {...restProps}

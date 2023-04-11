@@ -23,8 +23,9 @@ function Result() {
   }
   const testResult = getTestResult()
   return (
-    <TestLayout>
-      <ScoreSection testResult={testResult}/>
+    <TestLayout className={'pb-[16px]'}>
+      <ScoreSection testResult={testResult} />
+      <BottomButtons testResult={testResult} />
     </TestLayout>
   )
 }
