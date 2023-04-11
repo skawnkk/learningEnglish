@@ -7,10 +7,11 @@ import {useRecoilState, useSetRecoilState} from 'recoil'
 import {questionAtom, testStateAtom} from '../../../state/atoms'
 import BottomNav from '../../../components/bottomNav/BottomNav'
 import TestLayout from '../../../components/layout/TestLayout'
-import {useModal} from "../../../atomics/modal/useModal";
+import {useModal} from '../../../atomics/modal/useModal'
+import ErrorModal from '../../../components/modal/ErrorModal'
 
 function TestPage() {
-  const {openModal}=useModal()
+  const {openModal, closeModal} = useModal()
   const router = useRouter()
   const id = Number(router.query.id as string)
   const [questions, setQuestions] = useState([])
@@ -19,7 +20,16 @@ function TestPage() {
 
   useEffect(() => {
     if (!id) return
-    openModal(<TimerModal/>)
+    openModal(<TimerModal />)
+    const onClickFetchAgain = () =>{
+      closeModal()
+      getQuestions()
+    }
+    const moveBack = () => {
+      router.back()
+      closeModal()
+    }
+
     const getQuestions = () => {
       fetch(`https://qualson-test.vercel.app/api/test/${id}`)
         .then((res) => {
@@ -34,8 +44,8 @@ function TestPage() {
           setQuestion(res.data.content[testState.current])
         })
         .catch((err) => {
-          console.log(err) //todo:에러처리(모달?) - 재요청/리스트가기 모달
-          router.back()
+          openModal(<ErrorModal onClickFetchAgain={onClickFetchAgain} onClickBack={moveBack} />)
+          console.log(err)
         })
     }
 

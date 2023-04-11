@@ -11,13 +11,13 @@
   justify-content: center;
 }
 
-.modal_background {
-}
 .modal_contents {
   background-color: #fff;
   z-index: 1;
 }
 
+
+/*timerModal*/
 .timer {
   width: 312px;
   border: 2px solid #00d37a;
@@ -58,4 +58,10 @@
 .hint {
   color: #ff7448;
   margin-left: 6px;
+}
+
+/*errorModal*/
+.errorModal {
+  padding: 16px;
+  background-color: #fff;
 }
