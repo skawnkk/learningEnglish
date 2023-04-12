@@ -1,38 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
 
 First, run the development server:
 
 ```bash
-npm run dev
-# or
 yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+*선택사항
+- [x] 타입스크립트 적용
+  - 타입파일 분리 types/index.ts
+- [x] 반응형
+  - 디바이스 사이즈에 따라 버튼의 문구가 깨지지않도록 레이아웃, 너비 조정
+  - 디바이스 사이즈가 늘어나면서 하단 [테스트 페이지 > 다음 문제] 버튼의 비율을 늘림
+  - [테스트 페이지 > 단어선택영역] 화면이 커짐에 따라 늘어나지 않도록 최소 사이즈 설정 및 중앙 배치
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+*특이사항
+- 전역상태관리 라이브러리로 recoil 사용
+  - recoil 폴더 하위에 quiz관련 상태, UI관련 상태를 나누어 관리
+  - 뷰에서 호출해야하는 로직을 selector로 분리하고자 함.
+  - 중복된 타이머기능 > useTimer hook 구현
+    - timer 시작 조건, 시간 형식 조건, 타이머설정시간을 prop으로 받음
+    
+- 데이터 구조
+  ```
+  export interface MyTestState {
+   id: number 
+   startDatetime: string
+   current: number //현재 풀고 있는 문제 번호
+   complete: boolean //테스트 완료여부
+   completeCount: number //테스트 완료 횟수
+   answers: AnswerState[]
+  }
+  ```
+  ```
+    export enum AnswerState {
+      CORRECT, //정답
+      WRONG, //오답
+      TRYING, //현재 문제
+      TODO, //남은 문제
+  }
+  ```
+  
