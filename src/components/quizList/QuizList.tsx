@@ -2,23 +2,29 @@ import React from 'react'
 import styles from '../../styles/pages/TestList.module.css'
 import Image from 'next/image'
 import router from 'next/router'
-import {formatDate} from '../../utils/date'
+import {convertYYMMDD} from '../../utils/date'
 import {getMyQuizList, getQuizHistory} from '../../utils/quiz'
 import {useRecoilState, useSetRecoilState} from 'recoil'
 import {testListAtom, testStateAtom} from '../../recoil/quiz'
+import {TestList} from '../../pages'
+import classNames from 'classnames'
 
-function QuizList({testList}) {
+interface QuizList {
+  testList: TestList
+}
+
+function QuizList({testList}: QuizList) {
   const setTestStateList = useSetRecoilState(testListAtom)
   const [testState, setTestState] = useRecoilState(testStateAtom)
 
   const startTest = (id: number) => {
     const quizList = getMyQuizList()
-    const currentTestHistory = getQuizHistory(quizList, id)
+    const testHistory = getQuizHistory(quizList, id)
 
-    if (currentTestHistory) {
-      setTestState(currentTestHistory)
+    if (testHistory) {
+      setTestState(testHistory)
       setTestStateList([...quizList])
-      const routerPath = currentTestHistory?.complete ? `/result?referrer=list` : `/test/${id}`
+      const routerPath = testHistory?.complete ? `/result?referrer=list` : `/test/${id}`
       router.push(routerPath)
       return
     }
@@ -30,12 +36,12 @@ function QuizList({testList}) {
 
   return (
     <div>
-      {testList.map((li) => {
+      {testList.map((test) => {
         return (
-          <div key={li.id} className={styles.testItem} onClick={() => startTest(li.id)}>
+          <div key={test.id} className={classNames(styles.testItem, 'cursor-pointer')} onClick={() => startTest(test.id)} role={'presentation'}>
             <div>
-              <p>{li.subtitle}</p>
-              <p className={styles.date}>{formatDate(new Date(li.startDatetime))}</p>
+              <p>{test.subtitle}</p>
+              <p className={styles.date}>{convertYYMMDD(new Date(test.startDatetime))}</p>
             </div>
             <Image src={'/icon/arrow_right.svg'} width={7} height={12} alt={'icon_detail'} />
           </div>

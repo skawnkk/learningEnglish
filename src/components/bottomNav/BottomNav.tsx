@@ -17,35 +17,29 @@ function BottomNav() {
   const isAnswer = useRecoilValue(isAnswerSelector)
   const isReadyTimeEnd = useRecoilValue(readyTimeEndAtom)
   const time = useTimer({limitTime: 45, format: 'ss', start: isReadyTimeEnd})
-
   const getIsActiveButton = () => {
-    if (time < 1 || myAnswerList.length === 0) return false
-    return true
+    return !(time < 1 || myAnswerList.length === 0)
   }
-  const isActiveButton = getIsActiveButton()
-
   const checkAnswer = () => {
     let originAnswerState = [...testState.answers]
-    originAnswerState.splice(
-      testState.current,
-      1,
-      isAnswer ? AnswerState.CORRECT : AnswerState.WRONG
-    )
-
+    originAnswerState.splice(testState.current, 1, isAnswer ? AnswerState.CORRECT : AnswerState.WRONG)
     setTestState((prev) => ({...prev, answers: originAnswerState}))
+  }
+  const submitAnswer = () => {
+    checkAnswer()
     router.replace(`/test/${router.query.id}/check`)
   }
 
   useEffect(() => {
     if (time < 1) {
-      checkAnswer()
+      submitAnswer()
     }
   }, [time])
 
   return (
     <div className={classNames(styles.bottomNav, 'flex justify-between')}>
       <TestTimer time={time} />
-      <Button disabled={!isActiveButton} onClick={checkAnswer}>
+      <Button disabled={!getIsActiveButton()} onClick={submitAnswer}>
         {'다 풀었어요'}
       </Button>
     </div>

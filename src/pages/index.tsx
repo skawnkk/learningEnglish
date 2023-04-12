@@ -8,7 +8,7 @@ export default function TestListPage({testList}) {
 
   return (
     <div>
-      <Header>테스트목록</Header>
+      <Header title={'테스트목록'}/>
       <div className={styles.topSection}>
         <div>
           <p className={styles.miniTitle}>SPEAKING | Basic High</p>
@@ -29,7 +29,7 @@ export default function TestListPage({testList}) {
 }
 
 
-type TestList = testItem[]
+export type TestList = testItem[]
 type testItem = {
   id: number
   subtitle: string
@@ -45,7 +45,7 @@ export const getServerSideProps = async () => {
 
   return {
     props: {
-      testList: testList,
+      testList,
     },
   }
 }

@@ -19,33 +19,37 @@ export const initialTestState: MyTestState = {
 }
 
 //test historyList
-const testListAtom = atom({
+const testListAtom = atom<MyTestState[]>({
   key: 'testListAtom',
   default: [initialTestState],
 })
 
 //test currentTestState
-const testStateAtom = atom({
+const testStateAtom = atom<MyTestState>({
   key: 'testStateAtom',
   default: initialTestState,
 })
 
-const myAnswerAtom = atom({
+const myAnswerAtom = atom<string[]>({
   key: 'myAnswerAtom',
   default: [],
 })
 
-const questionAtom = atom({
-  key: 'questionAtom',
-  default: initialQuestion,
+const questionsAtom = atom({
+  key: 'questionsAtom',
+  default: [],
 })
 
 const isAnswerSelector = selector({
   key: 'isAnswerSelector',
   get: ({get}) => {
-    const question = get(questionAtom)
+    const questions = get(questionsAtom)
+    const {current} = get(testStateAtom)
+    if(questions.length<current) return false
+
+    const question = questions[current]
     const myAnswer = get(myAnswerAtom)
-    return question.words.join(' ') === myAnswer.join(' ')
+    return question?.words.join(' ') === myAnswer.join(' ')
   },
 })
 
@@ -64,7 +68,8 @@ const myScoreResultSelector = selector({
     }
   },
 })
-//todo:중간에 게임을 관두면?
+
+//todo:중간에 게임을 관두면? (x클릭)
 
 //테스트 다시하기 클릭 시
 const resetTestInfo = selector({
@@ -78,12 +83,4 @@ const resetTestInfo = selector({
   },
 })
 
-export {
-  testListAtom,
-  testStateAtom,
-  myAnswerAtom,
-  questionAtom,
-  isAnswerSelector,
-  myScoreResultSelector,
-  resetTestInfo,
-}
+export {testListAtom, testStateAtom, myAnswerAtom, questionsAtom, isAnswerSelector, myScoreResultSelector, resetTestInfo}

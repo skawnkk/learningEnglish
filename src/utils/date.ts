@@ -3,7 +3,7 @@ const getFullNumber = (d: number) => {
   return d
 }
 
-export const formatDate = (source: Date, format = '.') => {
+export const convertYYMMDD = (source: Date, format = '.') => {
   const {year, month, date} = {
     year: source.getFullYear().toString().slice(2),
     month: getFullNumber(source.getMonth() + 1),

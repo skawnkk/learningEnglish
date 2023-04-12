@@ -10,7 +10,7 @@ import {useRouter} from 'next/router'
 import StepBar from '../../../components/step/StepBar'
 import {AnswerState} from '../../../types'
 
-function Check() {
+function CheckPage() {
   const router = useRouter()
   const isAnswer = useRecoilValue(isAnswerSelector)
   const resetMyAnswer = useResetRecoilState(myAnswerAtom)
@@ -18,12 +18,17 @@ function Check() {
   const {answers, current} = testState
   const isLastQuiz = answers.length === current + 1
 
-  const goNextQuiz = () => {
-    resetMyAnswer()
+  /**
+   * @description StepBar 컴포넌트의 진행단계를 업데이트하는 함수
+   */
+  const updateStepBarInProgress = () =>{
     let originAnswerState = [...answers]
     originAnswerState.splice(current + 1, 1, AnswerState.TRYING)
-
     setTestState((prev) => ({...prev, current: prev.current + 1, answers: originAnswerState}))
+  }
+
+  const goNextQuiz = () => {
+    updateStepBarInProgress()
     router.replace(`/test/${router.query.id}`)
   }
 
@@ -58,4 +63,4 @@ function Check() {
   )
 }
 
-export default Check
+export default CheckPage

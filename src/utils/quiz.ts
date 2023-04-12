@@ -3,6 +3,7 @@ import {MyTestState} from '../types'
 const KEY = 'my-quiz-list'
 
 const getMyQuizList = () => {
+  if(typeof window === "undefined") return []
   const myQuizList = localStorage.getItem(KEY)
   return myQuizList ? JSON.parse(myQuizList) : []
 }
