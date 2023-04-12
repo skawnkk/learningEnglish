@@ -1,14 +1,15 @@
 import {Inter} from 'next/font/google'
-import Header from '../components/header/Header'
+import Header from '../components/common/header/Header'
 import styles from '../styles/pages/TestList.module.css'
-import QuizList from "../components/quizList/QuizList";
+import QuizList from '../components/list/QuizList'
+import {getTestList} from '../service/getQuestions'
+
 const inter = Inter({subsets: ['latin']})
 
 export default function TestListPage({testList}) {
-
   return (
-    <div>
-      <Header title={'테스트목록'}/>
+    <div className={'flex flex-col flex-1'}>
+      <Header title={'테스트목록'} />
       <div className={styles.topSection}>
         <div>
           <p className={styles.miniTitle}>SPEAKING | Basic High</p>
@@ -23,11 +24,10 @@ export default function TestListPage({testList}) {
           <p>소통하도록 연습해요.</p>
         </div>
       </div>
-      <QuizList testList={testList}/>
+      <QuizList testList={testList} />
     </div>
   )
 }
-
 
 export type TestList = testItem[]
 type testItem = {
@@ -37,11 +37,6 @@ type testItem = {
 }
 
 export const getServerSideProps = async () => {
-  const testList: TestList = await fetch('https://qualson-test.vercel.app/api/test/list')
-    .then((res) => res.json())
-    .then((res) => res.data)
-    .catch(()=>[])
-  testList?.sort((prev, next) => new Date(next.startDatetime).getTime() - new Date(prev.startDatetime).getTime())
 
   return {
     props: {

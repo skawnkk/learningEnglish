@@ -3,11 +3,11 @@ import Image from 'next/image'
 import {useRecoilState, useRecoilValue, useResetRecoilState} from 'recoil'
 import {isAnswerSelector, myAnswerAtom, testStateAtom} from '../../../recoil/quiz'
 import styles from '../../../styles/pages/Check.module.css'
-import TestLayout from '../../../components/layout/TestLayout'
+import TestLayout from '../../../components/common/layout/TestLayout'
 import classNames from 'classnames'
 import Button from '../../../atomics/button/Button'
 import {useRouter} from 'next/router'
-import StepBar from '../../../components/step/StepBar'
+import StepBar from '../../../components/test/step/StepBar'
 import {AnswerState} from '../../../types'
 
 function CheckPage() {
@@ -21,7 +21,7 @@ function CheckPage() {
   /**
    * @description StepBar 컴포넌트의 진행단계를 업데이트하는 함수
    */
-  const updateStepBarInProgress = () =>{
+  const updateStepBarInProgress = () => {
     let originAnswerState = [...answers]
     originAnswerState.splice(current + 1, 1, AnswerState.TRYING)
     setTestState((prev) => ({...prev, current: prev.current + 1, answers: originAnswerState}))

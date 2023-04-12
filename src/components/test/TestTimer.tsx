@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './BottomNav.module.css'
+import styles from './bottomNav/BottomNav.module.css'
 
 function TestTimer({time}:{time:number}) {
 

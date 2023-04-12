@@ -1,7 +1,9 @@
 import React from 'react'
 import styles from './StepBar.module.css'
 import classNames from 'classnames'
-import {Answer, AnswerState} from '../../types'
+import {AnswerState} from '../../../types'
+import {useRecoilValue} from 'recoil'
+import {testStateAtom} from '../../../recoil/quiz'
 
 interface Step {
   state: AnswerState
@@ -32,21 +34,17 @@ const Step = ({state, style}: Step) => {
   return <div className={classNames(getAnswerStyle(state), styles.step)} style={style} />
 }
 
-interface StepBar {
-  stepList: Answer[]
-  current: number
-}
-
-function StepBar({stepList, current}: StepBar) {
+function StepBar() {
+  const {answers: stepList, current} = useRecoilValue(testStateAtom)
   return (
     <>
       <div className={classNames(styles.stepBar, 'flex justify-around')}>
-        {stepList.map((step, idx) => (
+        {stepList?.map((step, idx) => (
           <Step key={idx} state={step} style={{width: `calc(90%/${stepList.length})`}} />
         ))}
       </div>
       <div className={styles.progress}>
-        {current + 1}/{stepList.length}
+        {current + 1}/{stepList?.length}
       </div>
     </>
   )

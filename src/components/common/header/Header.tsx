@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './Header.module.css'
-import IconClear from '../IconClear'
 import classNames from 'classnames'
+import IconClear from "../IconClear";
 
 interface Header{
   title?:string

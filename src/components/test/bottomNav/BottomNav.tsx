@@ -1,14 +1,14 @@
 import React, {useEffect} from 'react'
-import TestTimer from './TestTimer'
-import Button from '../../atomics/button/Button'
+import TestTimer from '../TestTimer'
+import Button from '../../../atomics/button/Button'
 import classNames from 'classnames'
 import styles from './BottomNav.module.css'
 import {useRecoilState, useRecoilValue} from 'recoil'
-import {isAnswerSelector, myAnswerAtom, testStateAtom} from '../../recoil/quiz'
-import {useTimer} from '../../hooks/useTimer'
+import {isAnswerSelector, myAnswerAtom, testStateAtom} from '../../../recoil/quiz'
+import {useTimer} from '../../../hooks/useTimer'
 import {useRouter} from 'next/router'
-import {readyTimeEndAtom} from '../../recoil/modal'
-import {AnswerState} from '../../types'
+import {readyTimeEndAtom} from '../../../recoil/modal'
+import {AnswerState} from '../../../types'
 
 function BottomNav() {
   const router = useRouter()
@@ -22,7 +22,11 @@ function BottomNav() {
   }
   const checkAnswer = () => {
     let originAnswerState = [...testState.answers]
-    originAnswerState.splice(testState.current, 1, isAnswer ? AnswerState.CORRECT : AnswerState.WRONG)
+    originAnswerState.splice(
+      testState.current,
+      1,
+      isAnswer ? AnswerState.CORRECT : AnswerState.WRONG
+    )
     setTestState((prev) => ({...prev, answers: originAnswerState}))
   }
   const submitAnswer = () => {

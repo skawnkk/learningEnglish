@@ -1,14 +1,16 @@
 import React, {useEffect, useMemo, useState} from 'react'
-import {shuffle} from '../../utils/dataCtrl'
+import {shuffle} from '../../../utils/dataCtrl'
 import {useRecoilState, useRecoilValue} from 'recoil'
-import {initialQuestion, myAnswerAtom, questionsAtom, testStateAtom} from '../../recoil/quiz'
+import {initialQuestion, myAnswerAtom, questionsAtom, testStateAtom} from '../../../recoil/quiz'
 import WordTag from './WordTag'
 import classNames from 'classnames'
 import styles from './QuizSection.module.css'
 import Speaker from './Speaker'
 
 const NoteLine = () => {
-  return Array.from({length: 4}).map((line, idx) => <hr key={idx} className={`absolute top-[${idx * 56 + 48}px] w-full border-[#64696E]`} />)
+  return Array.from({length: 4}).map((line, idx) => (
+    <hr key={idx} className={`absolute top-[${idx * 56 + 48}px] w-full border-[#64696E]`} />
+  ))
 }
 
 function QuizSection() {
@@ -20,18 +22,22 @@ function QuizSection() {
 
   const handleClickWordTag = (id: number) => {
     const selectedAnswer = wordTagsToAnswer.find((wordTag) => wordTag.id === id)
-    setWordTagsToAnswer(wordTagsToAnswer.map((wordTag)=>{
-      return wordTag.id===selectedAnswer.id?{...selectedAnswer, selected:true}:wordTag
-    }))
+    setWordTagsToAnswer(
+      wordTagsToAnswer.map((wordTag) => {
+        return wordTag.id === selectedAnswer.id ? {...selectedAnswer, selected: true} : wordTag
+      })
+    )
 
     setMyAnswer((prev) => [...prev, selectedAnswer.word])
   }
 
   useEffect(() => {
     if (!question) return
-    const shuffledWordTagsToAnswer = shuffle([...question.distractors, ...question.words]).map((option, idx) => {
-      return {id: idx, word: option, selected: false}
-    })
+    const shuffledWordTagsToAnswer = shuffle([...question.distractors, ...question.words]).map(
+      (option, idx) => {
+        return {id: idx, word: option, selected: false}
+      }
+    )
     setWordTagsToAnswer(shuffledWordTagsToAnswer)
   }, [question])
 
@@ -52,7 +58,12 @@ function QuizSection() {
         <div className={classNames(styles.optionSection, 'flex flex-wrap')}>
           {wordTagsToAnswer?.map(({id, word, selected}) => {
             return (
-              <WordTag key={`option-${id}`} className={`mb-[4px] mr-[4px]`} disabled={selected} onClick={() => handleClickWordTag(id)}>
+              <WordTag
+                key={`option-${id}`}
+                className={`mb-[4px] mr-[4px]`}
+                disabled={selected}
+                onClick={() => handleClickWordTag(id)}
+              >
                 {word}
               </WordTag>
             )
