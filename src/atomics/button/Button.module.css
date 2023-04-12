@@ -5,6 +5,7 @@
   color: #fff;
   font-size: 16px;
   font-weight: 500;
+  min-width: 120px;
 }
 
 .basicButtonDisabled {
@@ -14,6 +15,7 @@
 
 .ghost {
   background: #fff;
-  color: #64696E;
-  border: 1px solid #D2D8E1;
+  color: #64696e;
+  border: 1px solid #d2d8e1;
 }
+

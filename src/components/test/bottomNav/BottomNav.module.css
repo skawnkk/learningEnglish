@@ -9,3 +9,15 @@
   line-height: 40px;
   margin-left: 12px;
 }
+@media (max-width: 350px) {
+  .mediaSize {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media (min-width: 420px) {
+  .mediaSize {
+    width:60%;
+  }
+}

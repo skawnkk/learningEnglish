@@ -43,7 +43,7 @@ function BottomNav() {
   return (
     <div className={classNames(styles.bottomNav, 'flex justify-between')}>
       <TestTimer time={time} />
-      <Button disabled={!getIsActiveButton()} onClick={submitAnswer}>
+      <Button className={styles.mediaSize} disabled={!getIsActiveButton()} onClick={submitAnswer}>
         {'다 풀었어요'}
       </Button>
     </div>
