@@ -1,9 +1,11 @@
-import React, {useEffect} from 'react'
-import Header from '../header/Header'
-import {useSetRecoilState} from 'recoil'
-import {myAnswerAtom} from '../../../recoil/quiz'
+import React from 'react'
 import {useRouter} from 'next/router'
 import classNames from 'classnames'
+import {useRecoilValue, useResetRecoilState} from 'recoil'
+import {getResultWhileTest, myAnswerAtom} from '../../../recoil/quiz'
+import {readyTimeEndAtom} from '../../../recoil/modal'
+import Header from '../header/Header'
+import {saveQuizResult} from '../../../utils/quiz'
 
 interface TestLayoutProps {
   className: string
@@ -12,18 +14,20 @@ interface TestLayoutProps {
 
 function TestLayout({className, children}: TestLayoutProps) {
   const router = useRouter()
-  const setMyAnswerList = useSetRecoilState(myAnswerAtom)
+  const resetMyAnswer = useResetRecoilState(myAnswerAtom)
+  const resetTimerModal = useResetRecoilState(readyTimeEndAtom)
+  const resultWhileTest = useRecoilValue(getResultWhileTest)
+
   const moveBack = () => {
+    resetMyAnswer()
+    resetTimerModal()
+    saveQuizResult(resultWhileTest)
     router.push('/')
   }
 
-  useEffect(() => {
-    return () => setMyAnswerList([])
-  }, [])
-
   return (
     <div className={classNames('flex flex-col flex-1 px-4', className)}>
-      <Header title={'테스트'} clear onClick={moveBack}/>
+      <Header title={'테스트'} clear onClick={moveBack} />
       <div className={'flex flex-col flex-1'}>{children}</div>
     </div>
   )

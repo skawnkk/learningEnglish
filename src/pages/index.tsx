@@ -2,7 +2,7 @@ import {Inter} from 'next/font/google'
 import Header from '../components/common/header/Header'
 import styles from '../styles/pages/TestList.module.css'
 import QuizList from '../components/list/QuizList'
-import {getTestList} from '../service/getQuestions'
+import {getTestList} from "../service/getQuestions";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -37,6 +37,7 @@ type testItem = {
 }
 
 export const getServerSideProps = async () => {
+  const testList = await getTestList()
 
   return {
     props: {

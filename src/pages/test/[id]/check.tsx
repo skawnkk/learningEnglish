@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Image from 'next/image'
-import {useRecoilState, useRecoilValue, useResetRecoilState} from 'recoil'
+import {useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState} from 'recoil'
 import {isAnswerSelector, myAnswerAtom, testStateAtom} from '../../../recoil/quiz'
 import styles from '../../../styles/pages/Check.module.css'
 import TestLayout from '../../../components/common/layout/TestLayout'
@@ -35,6 +35,11 @@ function CheckPage() {
   const goResultPage = () => {
     router.replace(`/result`)
   }
+
+
+  useEffect(() => {
+    return () => resetMyAnswer()
+  }, [])
 
   return (
     <TestLayout className={styles.checkLayout}>

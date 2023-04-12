@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import TestLayout from '../components/common/layout/TestLayout'
-import {useRecoilState, useRecoilValue} from 'recoil'
-import {myScoreResultSelector, testStateAtom} from '../recoil/quiz'
+import {useRecoilValue, useSetRecoilState} from 'recoil'
+import {getResultAfterEnd, myScoreResultSelector, testStateAtom} from '../recoil/quiz'
 import ScoreSection from '../components/result/ScoreSection'
 import BottomButtons from '../components/result/BottomButtons'
 import {saveQuizResult} from '../utils/quiz'
@@ -10,9 +10,9 @@ import {RESULT} from '../types'
 
 function Result() {
   const router = useRouter()
-  const [testState, setTestState] = useRecoilState(testStateAtom)
+  const setTestState = useSetRecoilState(testStateAtom)
   const {wrongAnswerCount} = useRecoilValue(myScoreResultSelector)
-
+  const testInfoForReset = useRecoilValue(getResultAfterEnd)
   const getTestResult = () => {
     if (wrongAnswerCount === 0) return RESULT.PERFECT
     if (wrongAnswerCount > 3) return RESULT.FAIL
@@ -22,15 +22,8 @@ function Result() {
 
   useEffect(() => {
     if (router.query.referrer) return
-    const originTestResult = {...testState}
-    const newTestResult = {
-      ...originTestResult,
-      complete: true,
-      completeCount: originTestResult.completeCount + 1,
-    }
-    setTestState(newTestResult)
-    saveQuizResult(newTestResult)
-    //todo:나중에 데이터 complete false, answers [], current 0로 만들고 재시작하기
+    setTestState(testInfoForReset)
+    saveQuizResult(testInfoForReset)
   }, [router.query.referrer])
 
   return (

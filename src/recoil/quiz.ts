@@ -18,13 +18,16 @@ export const initialTestState: MyTestState = {
   answers: [],
 }
 
-//test historyList
+/**
+ * @description
+ * testListAtom 전체 테스트(리스트) 유저 이력
+ * testStateAtom 현재 테스트에 대한 유저 이력
+ */
 const testListAtom = atom<MyTestState[]>({
   key: 'testListAtom',
   default: [initialTestState],
 })
 
-//test currentTestState
 const testStateAtom = atom<MyTestState>({
   key: 'testStateAtom',
   default: initialTestState,
@@ -45,7 +48,7 @@ const isAnswerSelector = selector({
   get: ({get}) => {
     const questions = get(questionsAtom)
     const {current} = get(testStateAtom)
-    if(questions.length<current) return false
+    if (questions.length < current) return false
 
     const question = questions[current]
     const myAnswer = get(myAnswerAtom)
@@ -69,18 +72,59 @@ const myScoreResultSelector = selector({
   },
 })
 
-//todo:중간에 게임을 관두면? (x클릭)
-
-//테스트 다시하기 클릭 시
-const resetTestInfo = selector({
-  key: 'resetTestInfo',
-  get: ({get}) => {},
-  set: ({get, set, reset}, newValue) => {
+/**
+ * @description
+ * getResultAfterEnd 정상적으로 테스트 완료한 후의 결과 정보
+ * getResultWhileTest 테스트 도중에 창을 종료했을 경우의 결과 정보
+ * getResetTestInfo 테스트 결과 확인 후, 다시 테스트하기를 시도할 경우의 결과 정보
+ */
+const getResultAfterEnd = selector({
+  key: 'getResultAfterEnd',
+  get: ({get}) => {
     const testState = get(testStateAtom)
-    set(testStateAtom, {...testState, complete: false, answers: [], current: 0})
-    reset(myAnswerAtom)
-    reset(readyTimeEndAtom)
+    const originTestResult = {...testState}
+    return {
+      ...originTestResult,
+      complete: true,
+      completeCount: originTestResult.completeCount + 1,
+    }
   },
 })
 
-export {testListAtom, testStateAtom, myAnswerAtom, questionsAtom, isAnswerSelector, myScoreResultSelector, resetTestInfo}
+const getResultWhileTest = selector({
+  key: 'getResultWhileTest',
+  get: ({get}) => {
+    const testState = get(testStateAtom)
+    const {answers, current} = testState
+    const originTestResult = {...testState}
+    const isLastQuiz = current + 1 === answers.length
+
+    return {
+      ...originTestResult,
+      complete: isLastQuiz,
+      completeCount: isLastQuiz
+        ? originTestResult.completeCount + 1
+        : originTestResult.completeCount,
+    }
+  },
+})
+
+const getResetTestInfo = selector({
+  key: 'getResetTestInfo',
+  get: ({get}) => {
+    const testState = get(testStateAtom)
+    return {...testState, complete: false, answers: [], current: 0}
+  },
+})
+
+export {
+  testListAtom,
+  testStateAtom,
+  myAnswerAtom,
+  questionsAtom,
+  isAnswerSelector,
+  myScoreResultSelector,
+  getResultWhileTest,
+  getResultAfterEnd,
+  getResetTestInfo,
+}
