@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {shuffle} from '../../../utils/dataCtrl'
 import {useRecoilState, useRecoilValue} from 'recoil'
 import {initialQuestion, myAnswerAtom, questionsAtom, testStateAtom} from '../../../recoil/quiz'
@@ -7,11 +7,6 @@ import classNames from 'classnames'
 import styles from './QuizSection.module.css'
 import Speaker from './Speaker'
 
-const NoteLine = () => {
-  return Array.from({length: 4}).map((line, idx) => (
-    <hr key={idx} className={`absolute top-[${idx * 56 + 48}px] w-full border-[#64696E]`} />
-  ))
-}
 
 function QuizSection() {
   const questions = useRecoilValue(questionsAtom)
@@ -50,8 +45,6 @@ function QuizSection() {
             {answer}
           </WordTag>
         ))}
-
-        <NoteLine />
       </div>
 
       <div className={'flex flex-col flex-1'}>

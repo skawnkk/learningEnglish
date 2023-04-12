@@ -1,5 +1,3 @@
-export type Answer = {no:number, state:AnswerState}
-
 export interface Question{
   answerKr: string
   distractors: string[]
